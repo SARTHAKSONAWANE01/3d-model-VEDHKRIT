@@ -1,0 +1,12 @@
+{
+  "name": "vedhkrit-veda-3d-model",
+  "version": "1.0.0",
+  "description": "3D Mascot Model and Web Application for VEDA - AI Mentor for Vedhkrit built with Three.js",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx -y serve ."
+  },
+  "dependencies": {
+    "three": "^0.160.0"
+  }
+}

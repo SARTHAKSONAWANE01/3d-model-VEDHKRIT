@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VEDHKRIT Student Learning Hub (Class 8th-10th) | VEDA AI Mentor</title>
+  <meta name="description" content="Bright, interactive 3D AI Student Learning World for 8th to 10th Standard Students with VEDA AI Mentor built with Three.js">
+  <link rel="stylesheet" href="styles.css">
+  
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+        "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+      }
+    }
+  </script>
+</head>
+<body>
+
+  <!-- Loading Screen -->
+  <div id="loading-overlay">
+    <div class="loader-spinner"></div>
+    <div class="loader-title">VEDHKRIT LEARNING HUB</div>
+    <div class="loader-subtitle">Preparing 8th-10th Standard AI Learning World...</div>
+  </div>
+
+  <!-- 3D Viewport Canvas -->
+  <div id="canvas-container"></div>
+
+  <!-- App Header -->
+  <header class="app-header">
+    <div class="brand-badge">
+      <div class="brand-logo-icon">V</div>
+      <div class="brand-info">
+        <h1>VEDHKRIT <span>LEARNING HUB</span></h1>
+        <p>Class 8th - 10th Standard Student AI Platform</p>
+      </div>
+    </div>
+
+    <!-- Student Stats Bar -->
+    <div class="student-stats-bar">
+      <div class="stat-pill xp">
+        <span class="stat-icon">⭐</span>
+        <span>Lvl 5 • <strong id="xp-counter">1,450 XP</strong></span>
+      </div>
+      <div class="stat-pill streak">
+        <span class="stat-icon">🔥</span>
+        <span><strong id="streak-counter">7 Day</strong> Streak</span>
+      </div>
+      <div class="stat-pill rank">
+        <span class="stat-icon">🏆</span>
+        <span>Rank <strong>#3</strong></span>
+      </div>
+    </div>
+  </header>
+
+  <!-- 8th-10th Standard Subject Module Bar -->
+  <nav class="subject-nav-bar">
+    <button class="subject-nav-btn active" data-subject="math">
+      <span>📐</span> Mathematics
+    </button>
+    <button class="subject-nav-btn" data-subject="science">
+      <span>🧪</span> Science & Physics
+    </button>
+    <button class="subject-nav-btn" data-subject="coding">
+      <span>💻</span> Computer Science
+    </button>
+    <button class="subject-nav-btn" data-subject="social">
+      <span>🌍</span> Social Studies
+    </button>
+    <button class="subject-nav-btn" data-subject="english">
+      <span>🗣️</span> English & Comm.
+    </button>
+  </nav>
+
+  <!-- Interactive VEDA Dialogue Speech Box -->
+  <div class="dialogue-box" id="dialogue-box">
+    <div class="dialogue-avatar">✨</div>
+    <div class="dialogue-text">
+      <div class="dialogue-speaker">VEDA • YOUR AI MENTOR</div>
+      <div class="dialogue-message" id="dialogue-message">
+        "Hi! I'm VEDA, your AI learning mentor! Pick any subject module or take a challenge and let's excel together!"
+      </div>
+    </div>
+    <button class="dialogue-btn" id="talk-btn">Next Tip 💡</button>
+  </div>
+
+  <!-- Interactive Practice Challenge Card -->
+  <div class="quiz-card-wrapper" id="quiz-card-wrapper">
+    <div class="quiz-card">
+      <div class="quiz-card-header">
+        <span class="quiz-badge">CLASS 9TH & 10TH PHYSICS CHALLENGE</span>
+        <span class="quiz-reward">+100 XP</span>
+      </div>
+      <div class="quiz-question-text" id="quiz-question-text">
+        Which fundamental law of physics states that "For every action, there is an equal and opposite reaction"?
+      </div>
+      <div class="quiz-options-grid">
+        <button class="quiz-opt-btn" data-correct="false">A) Newton's 1st Law</button>
+        <button class="quiz-opt-btn" data-correct="false">B) Newton's 2nd Law</button>
+        <button class="quiz-opt-btn" data-correct="true">C) Newton's 3rd Law</button>
+        <button class="quiz-opt-btn" data-correct="false">D) Law of Universal Gravitation</button>
+      </div>
+      <div class="quiz-feedback-msg" id="quiz-feedback-msg"></div>
+    </div>
+  </div>
+
+  <!-- Side Camera 360° Turnaround Controls -->
+  <aside class="side-controls">
+    <button class="icon-circle-btn" id="btn-camera-front" title="Front View">🎯</button>
+    <button class="icon-circle-btn" id="btn-camera-34" title="3/4 View">📐</button>
+    <button class="icon-circle-btn" id="btn-camera-side" title="Side View">👤</button>
+    <button class="icon-circle-btn" id="btn-camera-back" title="Back View">🔄</button>
+    <button class="icon-circle-btn active" id="btn-toggle-orbit" title="Auto Orbit">🌐</button>
+  </aside>
+
+  <!-- Bottom VEDA Suite Control Dock (Outfits, Poses, Expressions) -->
+  <nav class="control-dock">
+    <div class="dock-tabs">
+      <button class="dock-tab-btn active" data-tab="tab-outfits">
+        <span>🥼</span> Outfits
+      </button>
+      <button class="dock-tab-btn" data-tab="tab-actions">
+        <span>🏃‍♀️</span> Actions & Poses
+      </button>
+      <button class="dock-tab-btn" data-tab="tab-expressions">
+        <span>😊</span> Expressions
+      </button>
+    </div>
+
+    <!-- Outfits Panel (From Reference Image) -->
+    <div class="dock-content-panel active" id="tab-outfits">
+      <div class="button-grid">
+        <button class="action-btn active" data-outfit="student"><span class="btn-icon">🧥</span><span>Student Mode</span></button>
+        <button class="action-btn" data-outfit="mentor"><span class="btn-icon">👔</span><span>Mentor Mode</span></button>
+        <button class="action-btn" data-outfit="exam"><span class="btn-icon">✏️</span><span>Exam Mode</span></button>
+        <button class="action-btn" data-outfit="scientist"><span class="btn-icon">🥼</span><span>Scientist Mode</span></button>
+        <button class="action-btn" data-outfit="career"><span class="btn-icon">💼</span><span>Career Coach</span></button>
+        <button class="action-btn" data-outfit="casual"><span class="btn-icon">👚</span><span>Casual Mode</span></button>
+      </div>
+    </div>
+
+    <!-- Actions & Poses Panel (From Reference Image) -->
+    <div class="dock-content-panel" id="tab-actions">
+      <div class="button-grid">
+        <button class="action-btn" data-pose="wave"><span class="btn-icon">👋</span><span>Wave</span></button>
+        <button class="action-btn" data-pose="thumbsup"><span class="btn-icon">👍</span><span>Thumbs Up</span></button>
+        <button class="action-btn" data-pose="pointing"><span class="btn-icon">👉</span><span>Pointing</span></button>
+        <button class="action-btn" data-pose="presenting"><span class="btn-icon">👐</span><span>Presenting</span></button>
+        <button class="action-btn" data-pose="tablet"><span class="btn-icon">📱</span><span>Holding Tablet</span></button>
+        <button class="action-btn" data-pose="typing"><span class="btn-icon">💻</span><span>Typing</span></button>
+        <button class="action-btn" data-pose="explaining"><span class="btn-icon">📢</span><span>Explaining</span></button>
+        <button class="action-btn" data-pose="idea"><span class="btn-icon">💡</span><span>Idea</span></button>
+        <button class="action-btn" data-pose="walking"><span class="btn-icon">🚶‍♀️</span><span>Walking</span></button>
+        <button class="action-btn" data-pose="running"><span class="btn-icon">🏃‍♀️</span><span>Running</span></button>
+        <button class="action-btn" data-pose="jumping"><span class="btn-icon">🦘</span><span>Jumping</span></button>
+        <button class="action-btn" data-pose="celebrating"><span class="btn-icon">🙌</span><span>Celebrating</span></button>
+      </div>
+    </div>
+
+    <!-- Expressions Panel (From Reference Image) -->
+    <div class="dock-content-panel" id="tab-expressions">
+      <div class="button-grid">
+        <button class="action-btn" data-expression="happy"><span class="btn-icon">😊</span><span>Happy</span></button>
+        <button class="action-btn" data-expression="excited"><span class="btn-icon">🤩</span><span>Excited</span></button>
+        <button class="action-btn" data-expression="thinking"><span class="btn-icon">🤔</span><span>Thinking</span></button>
+        <button class="action-btn" data-expression="curious"><span class="btn-icon">🧐</span><span>Curious</span></button>
+        <button class="action-btn" data-expression="surprised"><span class="btn-icon">😲</span><span>Surprised</span></button>
+        <button class="action-btn" data-expression="confident"><span class="btn-icon">😎</span><span>Confident</span></button>
+        <button class="action-btn" data-expression="wink"><span class="btn-icon">😉</span><span>Winking</span></button>
+      </div>
+    </div>
+  </nav>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
