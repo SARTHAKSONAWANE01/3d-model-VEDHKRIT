@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>VEDHKRIT Student Learning Hub (Class 8th-10th) | VEDA AI Mentor</title>
-  <meta name="description" content="Bright, interactive 3D AI Student Learning World for 8th to 10th Standard Students with VEDA AI Mentor built with Three.js">
-  <link rel="stylesheet" href="styles.css">
+  <title>VEDHKRIT AI Learning Hub & 3D Mentor Studio | Class 8th-10th</title>
+  <meta name="description" content="Clean, interactive 3D AI Student Learning Hub and Character Studio for 8th-10th Standard Students with VEDA AI Mentor built with Three.js">
+  <link rel="stylesheet" href="styles.css?v=3">
   
   <script type="importmap">
     {
@@ -21,158 +21,361 @@
   <!-- Loading Screen -->
   <div id="loading-overlay">
     <div class="loader-spinner"></div>
-    <div class="loader-title">VEDHKRIT LEARNING HUB</div>
-    <div class="loader-subtitle">Preparing 8th-10th Standard AI Learning World...</div>
+    <div class="loader-title">VEDHKRIT AI HUB</div>
+    <div class="loader-subtitle">Preparing 8th-10th Standard 3D Mentor Studio...</div>
   </div>
 
-  <!-- 3D Viewport Canvas -->
-  <div id="canvas-container"></div>
+  <!-- App Container -->
+  <div class="app-layout">
 
-  <!-- App Header -->
-  <header class="app-header">
-    <div class="brand-badge">
-      <div class="brand-logo-icon">V</div>
-      <div class="brand-info">
-        <h1>VEDHKRIT <span>LEARNING HUB</span></h1>
-        <p>Class 8th - 10th Standard Student AI Platform</p>
+    <!-- Top Navigation Header -->
+    <header class="app-header">
+      <div class="brand-badge">
+        <div class="brand-logo-icon">V</div>
+        <div class="brand-info">
+          <h1>VEDHKRIT <span>AI HUB</span></h1>
+          <p>Class 8th-10th Student Learning Studio</p>
+        </div>
       </div>
-    </div>
 
-    <!-- Student Stats Bar -->
-    <div class="student-stats-bar">
-      <div class="stat-pill xp">
-        <span class="stat-icon">⭐</span>
-        <span>Lvl 5 • <strong id="xp-counter">1,450 XP</strong></span>
-      </div>
-      <div class="stat-pill streak">
-        <span class="stat-icon">🔥</span>
-        <span><strong id="streak-counter">7 Day</strong> Streak</span>
-      </div>
-      <div class="stat-pill rank">
-        <span class="stat-icon">🏆</span>
-        <span>Rank <strong>#3</strong></span>
-      </div>
-    </div>
-  </header>
+      <!-- Center Subject Quick Select -->
+      <nav class="header-subject-tabs" id="header-subject-tabs">
+        <button class="subj-tab active" data-subject="math">📐 Mathematics</button>
+        <button class="subj-tab" data-subject="science">🧪 Science</button>
+        <button class="subj-tab" data-subject="coding">💻 Coding & AI</button>
+        <button class="subj-tab" data-subject="social">🌍 Social Studies</button>
+        <button class="subj-tab" data-subject="english">🗣️ English</button>
+      </nav>
 
-  <!-- 8th-10th Standard Subject Module Bar -->
-  <nav class="subject-nav-bar">
-    <button class="subject-nav-btn active" data-subject="math">
-      <span>📐</span> Mathematics
-    </button>
-    <button class="subject-nav-btn" data-subject="science">
-      <span>🧪</span> Science & Physics
-    </button>
-    <button class="subject-nav-btn" data-subject="coding">
-      <span>💻</span> Computer Science
-    </button>
-    <button class="subject-nav-btn" data-subject="social">
-      <span>🌍</span> Social Studies
-    </button>
-    <button class="subject-nav-btn" data-subject="english">
-      <span>🗣️</span> English & Comm.
-    </button>
-  </nav>
+      <!-- Right Header Status & Model Controls -->
+      <div class="header-actions">
+        <!-- Indian AI Voice Toggle -->
+        <button class="header-pill-btn voice-btn" id="btn-toggle-voice" title="Toggle Indian AI Voice Over (ElevenLabs / Web Speech)">
+          <span id="voice-icon">🔊</span>
+          <span id="voice-label">Indian Voice</span>
+        </button>
 
-  <!-- Interactive VEDA Dialogue Speech Box -->
-  <div class="dialogue-box" id="dialogue-box">
-    <div class="dialogue-avatar">✨</div>
-    <div class="dialogue-text">
-      <div class="dialogue-speaker">VEDA • YOUR AI MENTOR</div>
-      <div class="dialogue-message" id="dialogue-message">
-        "Hi! I'm VEDA, your AI learning mentor! Pick any subject module or take a challenge and let's excel together!"
+        <!-- 3D FBX Model Switcher -->
+        <button class="header-pill-btn active" id="btn-toggle-model" title="Click to switch between Standing Greeting.fbx and character.fbx">
+          <span id="model-icon">🎬</span>
+          <span id="model-name-label">Standing Greeting.fbx</span>
+        </button>
+
+        <!-- Animation Live Indicator -->
+        <button class="header-pill-btn anim-btn" id="btn-toggle-anim" title="Pause or Resume Character Animation">
+          <span id="anim-icon">⏸️</span>
+          <span id="anim-label">Live</span>
+        </button>
+
+        <!-- Student Progress Pill -->
+        <div class="stat-badge">
+          <span class="stat-icon">⭐</span>
+          <span>Lvl 5 • <strong id="xp-counter">1,450 XP</strong></span>
+        </div>
+        <div class="stat-badge streak">
+          <span class="stat-icon">🔥</span>
+          <span><strong id="streak-counter">7 Day</strong> Streak</span>
+        </div>
       </div>
-    </div>
-    <button class="dialogue-btn" id="talk-btn">Next Tip 💡</button>
+    </header>
+
+    <!-- Main 3-Column Workspace -->
+    <main class="workspace-grid">
+
+      <!-- LEFT COLUMN: Curriculum & Practice Challenges -->
+      <aside class="workspace-panel panel-left" id="panel-curriculum">
+        <div class="panel-header">
+          <div class="panel-header-title">
+            <span class="panel-icon">📚</span>
+            <h2>Curriculum & Challenges</h2>
+          </div>
+          <span class="panel-tag">CBSE / ICSE</span>
+        </div>
+
+        <div class="panel-content-scroll">
+          <!-- Active Module Card -->
+          <div class="curriculum-card" id="module-summary-card">
+            <div class="curriculum-card-header">
+              <span class="curriculum-badge" id="module-badge">ACTIVE MODULE</span>
+              <span class="module-level">Class 9th & 10th</span>
+            </div>
+            <h3 class="module-title" id="module-title">Mathematics & Coordinate Geometry</h3>
+            <p class="module-desc" id="module-desc">Master linear equations, slopes, quadratic equations, and coordinate graphs.</p>
+          </div>
+
+          <!-- Interactive Practice Challenge Card -->
+          <div class="quiz-card" id="quiz-card">
+            <div class="quiz-card-header">
+              <span class="quiz-label">PRACTICE CHALLENGE</span>
+              <span class="quiz-reward-pill">+100 XP</span>
+            </div>
+            <div class="quiz-question-text" id="quiz-question-text">
+              What is the slope of a line with equation y = 3x + 5?
+            </div>
+            <div class="quiz-options-grid" id="quiz-options-grid">
+              <!-- Options populated dynamically -->
+            </div>
+            <div class="quiz-feedback-msg" id="quiz-feedback-msg"></div>
+          </div>
+
+          <!-- Student Mastery Tracker -->
+          <div class="mastery-card">
+            <div class="mastery-header">
+              <span>Weekly Target Progress</span>
+              <strong>78%</strong>
+            </div>
+            <div class="progress-bar-bg">
+              <div class="progress-bar-fill" style="width: 78%;"></div>
+            </div>
+            <div class="mastery-footer">
+              <span>🎯 12 / 15 Exercises Completed</span>
+              <span class="rank-highlight">🏆 Rank #3</span>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- CENTER COLUMN: 3D Stage Viewport -->
+      <section class="stage-viewport" id="stage-viewport">
+        <!-- 3D Canvas Mount Point -->
+        <div id="canvas-container"></div>
+
+        <!-- Floating Stage Header Info -->
+        <div class="stage-top-pill" id="stage-station-badge">
+          <span class="station-dot"></span>
+          <span id="stage-current-subject">Station: Mathematics</span>
+          <span class="station-divider">•</span>
+          <span id="stage-current-placement">Stage Center</span>
+        </div>
+
+        <!-- Floating Camera Presets Toolbar -->
+        <nav class="camera-toolbar" aria-label="Camera Controls">
+          <button class="cam-btn active" id="btn-cam-full" title="Full Body View">
+            <span class="cam-icon">🎯</span>
+            <span>Full</span>
+          </button>
+          <button class="cam-btn" id="btn-cam-head" title="Focus Head / Portrait">
+            <span class="cam-icon">👤</span>
+            <span>Focus</span>
+          </button>
+          <button class="cam-btn" id="btn-cam-34" title="Dynamic 3/4 View">
+            <span class="cam-icon">📐</span>
+            <span>3/4</span>
+          </button>
+          <button class="cam-btn" id="btn-cam-orbit" title="Toggle Auto-Orbit">
+            <span class="cam-icon">🌐</span>
+            <span>Orbit</span>
+          </button>
+          <button class="cam-btn" id="btn-cam-reset" title="Reset Camera View">
+            <span class="cam-icon">🔄</span>
+            <span>Reset</span>
+          </button>
+        </nav>
+      </section>
+
+      <!-- RIGHT COLUMN: AI Mentor & Character Action Studio -->
+      <aside class="workspace-panel panel-right" id="panel-studio">
+        <div class="panel-header">
+          <div class="panel-header-title">
+            <span class="panel-icon">✨</span>
+            <h2>VEDA AI Studio</h2>
+          </div>
+          <span class="panel-tag online">Active</span>
+        </div>
+
+        <div class="panel-content-scroll">
+          <!-- VEDA Dialogue Speech Box -->
+          <div class="dialogue-card" id="dialogue-box">
+            <div class="dialogue-header">
+              <div class="dialogue-avatar">✨</div>
+              <div class="dialogue-meta">
+                <span class="dialogue-speaker" id="dialogue-speaker">VEDA • AI MENTOR</span>
+                <div class="dialogue-status-row">
+                  <span class="dialogue-status">Online • Indian AI Voice</span>
+                  <div class="voice-soundwave" id="voice-soundwave" title="Voice Speaking">
+                    <span></span><span></span><span></span><span></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="dialogue-message" id="dialogue-message">
+              "Namaste! I'm VEDA, your AI mentor! Let's conquer your CBSE & ICSE syllabus together with full confidence!"
+            </div>
+            <div class="dialogue-actions">
+              <button class="dialogue-action-btn" id="talk-btn">💡 Next Tip</button>
+              <button class="dialogue-action-btn" id="speak-btn">🔊 Listen</button>
+              <button class="dialogue-action-btn secondary" id="eleven-settings-btn" title="ElevenLabs Voice Settings">⚙️</button>
+            </div>
+          </div>
+
+          <!-- Character Stage Placement Alignment -->
+          <div class="studio-section">
+            <div class="studio-section-header">
+              <span class="section-icon">📍</span>
+              <h4>Character Stage Alignment</h4>
+            </div>
+            <div class="placement-grid">
+              <button class="placement-btn active" data-align="center">
+                <span>🎯</span> Center Stage
+              </button>
+              <button class="placement-btn" data-align="left">
+                <span>👈</span> Present Left
+              </button>
+              <button class="placement-btn" data-align="right">
+                <span>👉</span> Present Right
+              </button>
+              <button class="placement-btn" data-align="podium">
+                <span>🏛️</span> Podium Desk
+              </button>
+            </div>
+          </div>
+
+          <!-- Actions & Animations Trigger (Integrated with User Added FBX Files) -->
+          <div class="studio-section">
+            <div class="studio-section-header">
+              <span class="section-icon">🏃‍♀️</span>
+              <h4>Actions & Expressions (FBX)</h4>
+            </div>
+            <div class="actions-grid">
+              <button class="action-tile-btn active" data-pose="wave" title="Standing Greeting.fbx">
+                <span class="tile-icon">👋</span>
+                <span class="tile-label">Greeting</span>
+              </button>
+              <button class="action-tile-btn" data-pose="clapping" title="Clapping.fbx">
+                <span class="tile-icon">👏</span>
+                <span class="tile-label">Clapping</span>
+              </button>
+              <button class="action-tile-btn" data-pose="excited" title="Excited.fbx">
+                <span class="tile-icon">🤩</span>
+                <span class="tile-label">Excited</span>
+              </button>
+              <button class="action-tile-btn" data-pose="rallying" title="Rallying.fbx">
+                <span class="tile-icon">🔥</span>
+                <span class="tile-label">Rallying</span>
+              </button>
+              <button class="action-tile-btn" data-pose="thumbsup" title="Standing Thumbs Up.fbx">
+                <span class="tile-icon">👍</span>
+                <span class="tile-label">Thumbs Up</span>
+              </button>
+              <button class="action-tile-btn standstill-btn" data-pose="standstill" title="Stand Still (Motionless Pose)">
+                <span class="tile-icon">🧍</span>
+                <span class="tile-label">Stand Still</span>
+              </button>
+              <button class="action-tile-btn" data-pose="idea" title="Idea">
+                <span class="tile-icon">💡</span>
+                <span class="tile-label">Got Idea</span>
+              </button>
+              <button class="action-tile-btn" data-pose="pointing" title="Pointing">
+                <span class="tile-icon">👉</span>
+                <span class="tile-label">Pointing</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Animation Playback Speed -->
+          <div class="studio-section">
+            <div class="studio-section-header">
+              <span class="section-icon">⏱️</span>
+              <h4>Animation Speed</h4>
+            </div>
+            <div class="speed-control-group">
+              <button class="speed-btn" data-speed="0.5">0.5x</button>
+              <button class="speed-btn active" data-speed="1.0">1.0x Normal</button>
+              <button class="speed-btn" data-speed="1.5">1.5x Fast</button>
+            </div>
+          </div>
+
+          <!-- Outfits & Persona Customizer -->
+          <div class="studio-section">
+            <div class="studio-section-header">
+              <span class="section-icon">🥼</span>
+              <h4>Mentor Outfits & Persona</h4>
+            </div>
+            <div class="outfit-grid">
+              <button class="outfit-btn active" data-outfit="student">
+                <span class="outfit-icon">🧥</span>
+                <span>Student Mode</span>
+              </button>
+              <button class="outfit-btn" data-outfit="mentor">
+                <span class="outfit-icon">👔</span>
+                <span>Mentor Suit</span>
+              </button>
+              <button class="outfit-btn" data-outfit="exam">
+                <span class="outfit-icon">✏️</span>
+                <span>Exam Mode</span>
+              </button>
+              <button class="outfit-btn" data-outfit="scientist">
+                <span class="outfit-icon">🥼</span>
+                <span>Scientist Lab Coat</span>
+              </button>
+              <button class="outfit-btn" data-outfit="casual">
+                <span class="outfit-icon">👚</span>
+                <span>Casual Mode</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Skin Tone & Appearance Customizer -->
+          <div class="studio-section">
+            <div class="studio-section-header">
+              <span class="section-icon">🎨</span>
+              <h4>Skin Tone & Appearance</h4>
+            </div>
+            <div class="tone-chips-grid">
+              <button class="tone-chip-btn active" data-tone="default" title="Natural Original Tone">
+                <span class="tone-swatch" style="background: linear-gradient(135deg, #FFF, #DEB887);"></span>
+                <span>Original</span>
+              </button>
+              <button class="tone-chip-btn" data-tone="warm" title="Natural Warm Indian Wheatish Tone">
+                <span class="tone-swatch" style="background: #F5C79A;"></span>
+                <span>Warm Indian</span>
+              </button>
+              <button class="tone-chip-btn" data-tone="amber" title="Golden Amber Tone">
+                <span class="tone-swatch" style="background: #E2A572;"></span>
+                <span>Golden Amber</span>
+              </button>
+              <button class="tone-chip-btn" data-tone="bronze" title="Deep Dusky Bronze Tone">
+                <span class="tone-swatch" style="background: #BA7B50;"></span>
+                <span>Dusky Bronze</span>
+              </button>
+              <button class="tone-chip-btn" data-tone="fair" title="Fair Honey Tone">
+                <span class="tone-swatch" style="background: #FFDFC4;"></span>
+                <span>Fair Honey</span>
+              </button>
+            </div>
+            <div class="custom-color-row">
+              <label for="custom-tone-picker">Custom Tone / Tint:</label>
+              <input type="color" id="custom-tone-picker" value="#FFFFFF" title="Pick custom tint color" />
+            </div>
+          </div>
+        </div>
+      </aside>
+
+    </main>
+
   </div>
 
-  <!-- Interactive Practice Challenge Card -->
-  <div class="quiz-card-wrapper" id="quiz-card-wrapper">
-    <div class="quiz-card">
-      <div class="quiz-card-header">
-        <span class="quiz-badge">CLASS 9TH & 10TH PHYSICS CHALLENGE</span>
-        <span class="quiz-reward">+100 XP</span>
+  <!-- ElevenLabs Settings Modal -->
+  <div class="modal-overlay hidden" id="eleven-modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>⚙️ ElevenLabs Indian AI Voice Settings</h3>
+        <button class="modal-close" id="modal-close-btn">&times;</button>
       </div>
-      <div class="quiz-question-text" id="quiz-question-text">
-        Which fundamental law of physics states that "For every action, there is an equal and opposite reaction"?
+      <p class="modal-desc">Connect your ElevenLabs API Key for studio-quality Indian voice generation, or enjoy the instant built-in Indian English voice.</p>
+      <div class="modal-form">
+        <label for="eleven-api-key">ElevenLabs API Key:</label>
+        <input type="password" id="eleven-api-key" placeholder="Enter your ElevenLabs API key..." autocomplete="off" />
+        <label for="eleven-voice-id">Voice ID (Default: Multilingual Indian Accent):</label>
+        <input type="text" id="eleven-voice-id" value="21m00Tcm4TlvDq8ikWAM" placeholder="ElevenLabs Voice ID..." />
+        <div class="modal-actions">
+          <button class="dialogue-action-btn" id="save-eleven-btn">Save & Activate</button>
+          <button class="dialogue-action-btn secondary" id="use-browser-voice-btn">Use Built-in Indian Voice</button>
+        </div>
       </div>
-      <div class="quiz-options-grid">
-        <button class="quiz-opt-btn" data-correct="false">A) Newton's 1st Law</button>
-        <button class="quiz-opt-btn" data-correct="false">B) Newton's 2nd Law</button>
-        <button class="quiz-opt-btn" data-correct="true">C) Newton's 3rd Law</button>
-        <button class="quiz-opt-btn" data-correct="false">D) Law of Universal Gravitation</button>
-      </div>
-      <div class="quiz-feedback-msg" id="quiz-feedback-msg"></div>
     </div>
   </div>
 
-  <!-- Side Camera 360° Turnaround Controls -->
-  <aside class="side-controls">
-    <button class="icon-circle-btn" id="btn-camera-front" title="Front View">🎯</button>
-    <button class="icon-circle-btn" id="btn-camera-34" title="3/4 View">📐</button>
-    <button class="icon-circle-btn" id="btn-camera-side" title="Side View">👤</button>
-    <button class="icon-circle-btn" id="btn-camera-back" title="Back View">🔄</button>
-    <button class="icon-circle-btn active" id="btn-toggle-orbit" title="Auto Orbit">🌐</button>
-  </aside>
-
-  <!-- Bottom VEDA Suite Control Dock (Outfits, Poses, Expressions) -->
-  <nav class="control-dock">
-    <div class="dock-tabs">
-      <button class="dock-tab-btn active" data-tab="tab-outfits">
-        <span>🥼</span> Outfits
-      </button>
-      <button class="dock-tab-btn" data-tab="tab-actions">
-        <span>🏃‍♀️</span> Actions & Poses
-      </button>
-      <button class="dock-tab-btn" data-tab="tab-expressions">
-        <span>😊</span> Expressions
-      </button>
-    </div>
-
-    <!-- Outfits Panel (From Reference Image) -->
-    <div class="dock-content-panel active" id="tab-outfits">
-      <div class="button-grid">
-        <button class="action-btn active" data-outfit="student"><span class="btn-icon">🧥</span><span>Student Mode</span></button>
-        <button class="action-btn" data-outfit="mentor"><span class="btn-icon">👔</span><span>Mentor Mode</span></button>
-        <button class="action-btn" data-outfit="exam"><span class="btn-icon">✏️</span><span>Exam Mode</span></button>
-        <button class="action-btn" data-outfit="scientist"><span class="btn-icon">🥼</span><span>Scientist Mode</span></button>
-        <button class="action-btn" data-outfit="career"><span class="btn-icon">💼</span><span>Career Coach</span></button>
-        <button class="action-btn" data-outfit="casual"><span class="btn-icon">👚</span><span>Casual Mode</span></button>
-      </div>
-    </div>
-
-    <!-- Actions & Poses Panel (From Reference Image) -->
-    <div class="dock-content-panel" id="tab-actions">
-      <div class="button-grid">
-        <button class="action-btn" data-pose="wave"><span class="btn-icon">👋</span><span>Wave</span></button>
-        <button class="action-btn" data-pose="thumbsup"><span class="btn-icon">👍</span><span>Thumbs Up</span></button>
-        <button class="action-btn" data-pose="pointing"><span class="btn-icon">👉</span><span>Pointing</span></button>
-        <button class="action-btn" data-pose="presenting"><span class="btn-icon">👐</span><span>Presenting</span></button>
-        <button class="action-btn" data-pose="tablet"><span class="btn-icon">📱</span><span>Holding Tablet</span></button>
-        <button class="action-btn" data-pose="typing"><span class="btn-icon">💻</span><span>Typing</span></button>
-        <button class="action-btn" data-pose="explaining"><span class="btn-icon">📢</span><span>Explaining</span></button>
-        <button class="action-btn" data-pose="idea"><span class="btn-icon">💡</span><span>Idea</span></button>
-        <button class="action-btn" data-pose="walking"><span class="btn-icon">🚶‍♀️</span><span>Walking</span></button>
-        <button class="action-btn" data-pose="running"><span class="btn-icon">🏃‍♀️</span><span>Running</span></button>
-        <button class="action-btn" data-pose="jumping"><span class="btn-icon">🦘</span><span>Jumping</span></button>
-        <button class="action-btn" data-pose="celebrating"><span class="btn-icon">🙌</span><span>Celebrating</span></button>
-      </div>
-    </div>
-
-    <!-- Expressions Panel (From Reference Image) -->
-    <div class="dock-content-panel" id="tab-expressions">
-      <div class="button-grid">
-        <button class="action-btn" data-expression="happy"><span class="btn-icon">😊</span><span>Happy</span></button>
-        <button class="action-btn" data-expression="excited"><span class="btn-icon">🤩</span><span>Excited</span></button>
-        <button class="action-btn" data-expression="thinking"><span class="btn-icon">🤔</span><span>Thinking</span></button>
-        <button class="action-btn" data-expression="curious"><span class="btn-icon">🧐</span><span>Curious</span></button>
-        <button class="action-btn" data-expression="surprised"><span class="btn-icon">😲</span><span>Surprised</span></button>
-        <button class="action-btn" data-expression="confident"><span class="btn-icon">😎</span><span>Confident</span></button>
-        <button class="action-btn" data-expression="wink"><span class="btn-icon">😉</span><span>Winking</span></button>
-      </div>
-    </div>
-  </nav>
-
-  <script type="module" src="js/app.js"></script>
+  <script type="module" src="js/app.js?v=3"></script>
 </body>
 </html>
